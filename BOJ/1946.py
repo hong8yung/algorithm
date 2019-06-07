@@ -1,28 +1,23 @@
 import sys
 inp = sys.stdin.readline
 
-def gen(num):
-    for i in range(num):
-        S = int(inp())
-        records = []
-        for j in range(S):
-            a, b = map(int, inp().split())
-            records.append((a,b))
-        
-        yield sorted(records)
-    
+T = int(inp())
+dict = {}
+for i in range(T):
+    N = int(inp())
+    dict.clear
 
-def greedy(records):
-    count = 0
+    for j in range(N):
+        a, b = inp().split()
+        dict[int(a)] = int(b)
+
+    sortedArr = sorted(dict.items())
     min = 100001
-    for i, record in enumerate(records):
-        if record[1] < min:
-            min = record[1]
-            count += 1
-    
-    return count
+    res = 0
 
-if __name__ == "__main__":
-    T = int(inp())
-    for records in gen(T):
-        print(greedy(records))
+    for j in sortedArr:
+        if(min > j[1]):
+            min = j[1]
+            res += 1 
+   
+    print(res)
