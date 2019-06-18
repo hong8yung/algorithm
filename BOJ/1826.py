@@ -5,6 +5,7 @@ def greedy():
     arr  = []
     queGS = []
     result = 0
+    idx = 0
 
     for i in range(int(inp())):
         dstGS, volFuel = map(int, inp().split())
@@ -13,19 +14,26 @@ def greedy():
     dstVlg, orgnlFuel = map(int, inp().split())
     arr = sorted(arr)
 
-    while orgnlFuel < dstVlg:
-        for GS in arr:
-            if GS[0] > orgnlFuel:
-                break
+    while dstVlg > orgnlFuel:
+        for i in range(idx, len(arr)):
+            if (orgnlFuel >= arr[i][0]):
+                queGS.append((arr[i][1]))
+                idx = i+1;           
+                print("orgnlFuel:{}, turn:{} // [+][stack psuhed] idx:{} -> que:{}".format(orgnlFuel, arr[i], idx, queGS))
             else:
-                queGS.append(GS[1])
-        if len(queGS)==0: 
-            break
-        result += 1
-        orgnlFuel += queGS.pop()
+                break
+        
+        if(len(queGS) == 0):
+            return -1
+        else:
+            result += 1
+            queGS = sorted(queGS)
+            orgnlFuel += (queGS.pop())
+            print("orgnlFuel:{}, turn:{} //[-][stack poped] idx:{} -> que:{}".format(orgnlFuel, arr[i],idx, queGS))
+#        print("orgnlFuel:{} idx:{} -> que:{}".format(orgnlFuel, idx, queGS))
 
-    if orgnlFuel < dstVlg: return -1
-    else: return result
+
+    return result
 
 if __name__ == "__main__":
     print(greedy())
