@@ -3,26 +3,31 @@ inp = sys.stdin.readline
 
 def greedy():
     num = int(inp())
-    inqltArr = list(map(str, inp().split()))
+    inqltArr = inp().split()
+    max_stack, min_stack = [], []
     
     maxNumArr = []
     minNumArr = []
-    for i in range(num+1):
-        minNumArr.append(i)  
-        maxNumArr.append(9-i)
     
-    for i, inqlt in enumerate(inqltArr):
-        if inqlt == '>':
-            minNumArr[i], minNumArr[i+1] = minNumArr[i+1], minNumArr[i]
-        else :
-            maxNumArr[i], maxNumArr[i+1] = maxNumArr[i+1], maxNumArr[i]
-    for i in maxNumArr:
-        print(i, end="")
+    for idx in range(num+1):
+        min_stack.append(str(idx))
+        max_stack.append(str(9-idx))
+        if idx == num:
+            while len(max_stack)>0:
+                maxNumArr.append(max_stack.pop())
+            while len(min_stack)>0:
+                minNumArr.append(min_stack.pop())
+        elif inqltArr[idx]=='>':
+            while len(max_stack)>0:
+                maxNumArr.append(max_stack.pop())
+        elif inqltArr[idx]=='<':
+            while len(min_stack)>0:
+                minNumArr.append(min_stack.pop())
 
-    print("")
-    for i in minNumArr:
-        print(i, end="")
+    maxNum = "".join(maxNumArr)
+    minNum = "".join(minNumArr)
 
+    print(maxNum, minNum)
 
 if __name__ == "__main__":
     greedy()
