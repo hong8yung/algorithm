@@ -2,7 +2,6 @@ def solution(skill, skill_trees):
     answer = 0
     for skill_tree in skill_trees:
         tmp = skill
-        print tmp
         for i in skill_tree:
             if i in tmp:
                 if i==tmp[0]:
@@ -11,7 +10,6 @@ def solution(skill, skill_trees):
                     break
         else:
             answer += 1
-            print skill_tree
 
     return answer
 
