@@ -1,9 +1,13 @@
 function solution(participant, completion){
     var answer = '';
+    participant.sort();
+    completion.sort();
     for(var i in completion){
-        participant.splice(participant.indexOf(completion[i]), 1)
+        if(participant[i] != completion[i]){
+            answer = participant[i];
+            break;
+        }
     }
-    answer = participant[0]
     return answer;
 }
 
