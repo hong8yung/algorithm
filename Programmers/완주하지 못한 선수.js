@@ -3,6 +3,7 @@ function solution(participant, completion){
     for(var i in completion){
         participant.splice(participant.indexOf(completion[i]), 1)
     }
+    answer = participant[0]
     return answer;
 }
 
