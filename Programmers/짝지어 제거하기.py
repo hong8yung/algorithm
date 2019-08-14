@@ -12,4 +12,3 @@ def solution(s):
 
 s = ["baabaa", "cdcd"]
 print(solution(s[0]))
-print(solution(s[1]))
