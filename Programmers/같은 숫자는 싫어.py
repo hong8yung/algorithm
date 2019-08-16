@@ -10,6 +10,7 @@ def solution(arr):
 
     return answer
 
+# arr[-1:] 빈값이 들어오더라도 죽지 않음
 def idle_solution(arr):
     answer = []
     for i in arr:
