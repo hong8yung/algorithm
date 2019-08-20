@@ -27,8 +27,12 @@ def main():
                 # True/False나 None, 배열 등일 때 처리 추가로 해야함 ㄷㄷ
                 arg_val.append(int(i.text))
 
-        print(title, arg_name, arg_val)
-        
+        print("title: {}, arg_nme: {}, arg_val:{}".format(title, arg_name, arg_val))
+        # file open & write
+        f = open("./Programmers/"+title+".py", 'w')
+        func_code = soup.find('textarea', id='code').text
+        f.write(func_code)
+        f.close()
 
 if __name__=="__main__":
     main()
