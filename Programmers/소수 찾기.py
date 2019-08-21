@@ -1,25 +1,14 @@
-import itertools
-def chk(num):
-    if num < 2:
-        return False
-    for i in range(2, num):
-        if num%i == 0:
-            return False
-    return True
+import math
 
-def solution(numbers):
-    answer = 0
-    tmp_list = []
-    for i in range(1, len(numbers)+1):
-        for number in itertools.permutations(numbers, i):
-            if chk(int("".join(number))):
-                tmp_list.append(int("".join(number)))
-                
-    answer = len(set(tmp_list))
-    return answer
+def solution(n):
+    tmp = [True] * (n+1)
+    for i in range(2, int(math.sqrt(n)+1)):
+        if(tmp[i]):
+            for j in range(i*2, n+1, i):
+                tmp[j] = False
+    
+    return tmp.count(True) - 2
 
-ret1 = "17"
-ret2 = "011"
-
-print(solution(ret1))
-print(solution(ret2))
+n = [20, 29]
+print(solution(n[0]))
+print(solution(n[1]))
