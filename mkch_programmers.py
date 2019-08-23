@@ -1,6 +1,7 @@
 import argparse
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+from collections import OrderedDict
 
 url = ""
 def main():
@@ -33,6 +34,16 @@ def main():
         # hidden 속성으로 #code에 디폴트 코드가 적혀져 있음.
         func_code = soup.find('textarea', id='code').text
         f.write(func_code)
+
+        arg_dic = OrderedDict.fromkeys(arg_name, [])
+        print("num({})".format(len(arg_name)))
+        for i, val in enumerate(arg_val):
+            print("i({}), name({}), val({})".format(i, arg_name[i%len(arg_name)], val))
+            (arg_dic[arg_name[i%len(arg_name)]]).append(val)
+            print(arg_dic[arg_name[i%len(arg_name)]])
+
+        f.write("\n\n")
+        f.write(str(arg_dic))
         f.close()
 
 if __name__=="__main__":
