@@ -35,7 +35,10 @@ def main():
         func_code = soup.find('textarea', id='code').text
         f.write(func_code)
 
-        arg_dic = OrderedDict.fromkeys(arg_name, [])
+        arg_dic = OrderedDict.fromkeys(arg_name)
+        for i in arg_dic:
+            arg_dic[i] = []
+
         print("num({})".format(len(arg_name)))
         for i, val in enumerate(arg_val):
             print("i({}), name({}), val({})".format(i, arg_name[i%len(arg_name)], val))
@@ -43,7 +46,15 @@ def main():
             print(arg_dic[arg_name[i%len(arg_name)]])
 
         f.write("\n\n")
-        f.write(str(arg_dic))
+        for i in arg_dic:
+            if i == 'return':
+                continue
+                #f.write('#')
+            line_str = "{} = {}\n".format(i, arg_dic[i])
+            f.write(line_str)
+
+        for num, i in enumerate(arg_dic.get('return')):
+            f.write("#case{}: {}\n".format(num, i))
         f.close()
 
 if __name__=="__main__":
