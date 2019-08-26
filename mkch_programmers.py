@@ -1,4 +1,5 @@
 import argparse
+import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from collections import OrderedDict
@@ -30,7 +31,11 @@ def main():
 
         print("title: {}, arg_nme: {}, arg_val:{}".format(title, arg_name, arg_val))
         # file open & write
-        f = open("./Programmers/"+title+".py", 'w')
+        if os.path.isfile("./Programmers/"+title+".py"):
+            print("[-] file already exists")
+            f = open("./Programmers/"+title+"_복사본.py", 'w')
+        else:
+            f = open("./Programmers/"+title+".py", 'w')
         # hidden 속성으로 #code에 디폴트 코드가 적혀져 있음.
         func_code = soup.find('textarea', id='code').text
         f.write(func_code)
