@@ -53,6 +53,17 @@ def main():
             line_str = "{} = {}\n".format(i, arg_dic[i])
             f.write(line_str)
 
+        f.write("\n")
+        for i in range(len(arg_dic['return'])):
+            line_str = ""
+            for j in arg_dic.keys():
+                if j != 'return':
+                    line_str = line_str+"{}[{}], ".format(j, i)
+            else:
+                line_str= line_str[:-2]
+            f.write("print(solution({}))\n".format(line_str))
+
+        f.write("\n")
         for num, i in enumerate(arg_dic.get('return')):
             f.write("#case{}: {}\n".format(num, i))
         f.close()
