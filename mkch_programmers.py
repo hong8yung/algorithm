@@ -6,6 +6,7 @@ from collections import OrderedDict
 import ast
 
 url = ""
+ret_string = ""
 
 # read source from url as byte code
 def read_source(url):
@@ -17,9 +18,16 @@ def read_source(url):
     
 # parse Challenge's info
 def parse_chal(soup):
+    global ret_string
     title = soup.find('li', class_='algorithm-title').text.strip()
     arg_sec = soup.find('table', class_='table')
     arg_name = [x.text for x in arg_sec.find_all('th')]
+    if 'return' in arg_name:
+        ret_string = "return"
+    elif 'result' in arg_name:
+        ret_string = "result"
+
+
     arg_val_tmp = arg_sec.find_all('td')
     arg_val_tmp_q = arg_sec.find_all('q')
 
@@ -59,24 +67,24 @@ def create_file(title, func_code, arg_dic):
     f.write(func_code)
     f.write("\n\n")
     for i in arg_dic:
-        if i == 'return':
+        if i == ret_string:
             continue
             #f.write('#')
         line_str = "{} = {}\n".format(i, arg_dic[i])
         f.write(line_str)
 
     f.write("\n")
-    for i in range(len(arg_dic['return'])):
+    for i in range(len(arg_dic[ret_string])):
         line_str = ""
         for j in arg_dic.keys():
-            if j != 'return':
+            if j != ret_string:
                 line_str = line_str+"{}[{}], ".format(j, i)
         else:
             line_str= line_str[:-2]
         f.write("print(solution({}))\n".format(line_str))
 
     f.write("\n")
-    for num, i in enumerate(arg_dic.get('return')):
+    for num, i in enumerate(arg_dic.get(ret_string)):
         f.write("#case{}: {}\n".format(num, i))
 
     f.close()
