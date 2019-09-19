@@ -8,6 +8,9 @@ def solution(s):
         else:
             return True
 
+def idle_solution(s):
+    return s.isdigit() and len(s) in (4,6)
+
 s = ["a234", "1234"]
 print(solution(s[0]))
 print(solution(s[1]))
