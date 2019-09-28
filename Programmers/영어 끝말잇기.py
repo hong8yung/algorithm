@@ -2,10 +2,17 @@ def solution(n, words):
     ex_words = []
     for idx, word in enumerate(words):
         if word in ex_words:
-            return [(idx%n)+1, idx//n+1]
+            return [(idx%n)+1, (idx//n)+1]
         if ex_words and word[0] != ex_words[-1][-1]:
             return [(idx%n)+1, (idx//n)+1]
         ex_words.append(word)
+    else:
+        return [0, 0]
+
+def idle_solution(n, words):
+    for p in range(1, len(words)):
+        if words[p][0] != words[p-1][-1] or words[p] in words[:p]: 
+            return [(p%n)+1, (p//n)+1]
     else:
         return [0, 0]
 
