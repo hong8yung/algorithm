@@ -1,18 +1,20 @@
 def solution(s, n):
     answer = ''
+    k = ord('z') - ord('a') + 1
     for i in s:
         if i.isupper():
-            tmp = 'Z'
+            if (ord(i)+n) > ord('Z'):
+                answer+=chr(ord(i)+n-k)
+            else:
+                answer += chr(ord(i)+n)
         elif i.islower():
-            tmp = 'z'
+            if (ord(i)+n) > ord('z'):
+                answer+=chr(ord(i)+n-k)
+            else:
+                answer += chr(ord(i)+n)
         else:
             answer += i
             continue
-        
-        if ord(i)+n > ord(tmp):
-            n -= ord('z') - ord('a') + 1
-
-        answer += chr(ord(i)+n)
 
     return answer
 
